@@ -5,6 +5,7 @@ class Vector
 	public:
 		Vector(const int size = 100);
 		~Vector();
+		Vector (const Vector & other_vector);
 		void push_back (int elem);
 		void insert_at(int index, int elem);
 		int get_at(int index);
@@ -27,6 +28,10 @@ int main () {
 	std::cout<< v.get_at (0) << std::endl;
 	std::cout<< "SIZE = " << v.get_size ()<< std::endl;
 	v.print ();
+	Vector new_vec (v);
+	new_vec.push_back (100);
+	new_vec.insert_at (3, 99);
+	new_vec.print ();
 	
 	
 }	
@@ -38,6 +43,16 @@ Vector::Vector (const int size) {
 	}
 	this -> m_arr = new int[m_size];
 	this -> m_top = -1;
+}
+
+
+Vector::Vector (const Vector & other_vector) {
+	this -> m_size = other_vector.m_size;
+	this -> m_top = other_vector.m_top;
+	this -> m_arr = new int[this -> m_size];
+	for (int i = 0; i < this -> m_size; i++) {
+		this -> m_arr[i] = other_vector.m_arr[i];
+	}
 }
 
 void Vector::push_back (int elem) {
